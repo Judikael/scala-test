@@ -1,0 +1,24 @@
+@(suppliers: List[Supplier])
+@import models._
+
+@main(title = "Home") {
+
+<div class="suppliers">
+	<h2>Suppliers</h2>
+	<table>
+	<tr>
+	  <th>ID</th>
+	  <th>Name</th> 
+	  <th>Street</th>
+	</tr>
+	@for(supplier <- suppliers) {
+	<tr>
+	  <td>@supplier.id</td>
+	  <td>@supplier.name</td> 
+	  <td>@supplier.street</td>
+	</tr>
+	}
+	</table>
+</div>
+
+}

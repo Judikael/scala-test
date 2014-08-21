@@ -1,0 +1,16 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.supplierDisplay
+GET     /supplier                   controllers.Application.supplierDisplay
+POST    /supplier                   controllers.Application.supplierCreate
+POST    /supplier/$id<[0-9]+>       controllers.Application.supplierDelete(id: Long)
+GET     /supplier/$id<[0-9]+>       controllers.Application.supplierEdit(id: Long)
+
+# Ajax JS route
+GET /javascriptRoutes  controllers.Application.javascriptRoutes
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -1,0 +1,60 @@
+html {overflow-y:scroll;}
+
+body {font-size:13px;color:#404040;
+background-color:#f1f1f1;margin:5px;}
+
+p,td,ul {
+	line-height:130%;
+}
+
+body,p,h1,h2,h3,h4,table,td,th,ul,ol,textarea,input {
+	font-family:verdana,helvetica,arial,sans-serif;
+}
+
+iframe 	{margin:0px;}
+img		{border:0;}
+
+table,th,td,input,textarea {
+	font-size:100%;
+}
+
+h1 {font-size:28px;margin-top:0px;font-weight:normal}
+h2 {font-size:22px;margin-top:10px;margin-bottom:10px;font-weight:normal}
+h3 {font-size:17px;font-weight:normal}
+h4 {font-size:12px;}
+h5 {font-size:11px;}
+h6 {font-size:10px;}
+
+h1,h2,h3,h4,h5,h6 {
+	background-color:transparent;color:#000000;
+}
+
+
+div.suppliers table, div.suppliers th, div.suppliers td
+{
+	border:1px solid #d4d4d4;
+	border-collapse:collapse;
+	padding:5px;
+	padding-top:7px;
+	padding-bottom:7px;
+	vertical-align:top;
+}
+
+div.suppliers table th
+{
+	color:#ffffff;
+	background-color:#555555;
+	border:1px solid #555555;
+	padding:3px;
+	vertical-align:top;
+	text-align:center;
+}
+
+div.suppliers table tr:nth-child(odd)	
+{
+	background-color:#f1f1f1;
+}
+div.suppliers table tr:nth-child(even)	
+{
+	background-color:#ffffff;
+}
