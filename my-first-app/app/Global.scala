@@ -30,15 +30,24 @@ object Global extends GlobalSettings {
         implicit session: Session =>
 
           // Insert only if not already inserted
-          
+          var numberOfUsers = UserDao.tableQuery.length.run
+          if (numberOfUsers == 0) 
+        	  UserDao.tableQuery ++= Seq(
+        			  (new User(1,"User01","pwd01")),
+        			  (new User(2,"User02","pwd02")),
+        			  (new User(3,"User03","pwd03")),
+        			  (new User(4,"User04","pwd04"))
+        			  )
+            
+            
+          // Insert only if not already inserted
           var numberOfSuppliers = ItemDao.tableQuery.length.run
-          
           if (numberOfSuppliers == 0) 
             ItemDao.tableQuery ++= Seq(
-              (new Item(-1,-1,"Name 1","Model 1")),
-              (new Item(-1,-1,"Name 2","Model 2")),
-              (new Item(-1,-1,"Name 3","Model 3")),
-              (new Item(-1,-1,"Name 4","Model 4"))
+              (new Item(-1,1,"Name 1","Model 1")),
+              (new Item(-1,1,"Name 2","Model 2")),
+              (new Item(-1,2,"Name 3","Model 3")),
+              (new Item(-1,2,"Name 4","Model 4"))
             )
           
       }

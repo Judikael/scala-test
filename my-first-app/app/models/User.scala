@@ -10,7 +10,6 @@ case class User(var id: Long, var login: String, var security: String) extends I
 
 class UsersTable(tag: play.api.db.slick.Config.driver.simple.Tag) extends IdentityTable[User](tag, "USERS") {
   
-  //def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
   def login = column[String]("LOGIN")
   def security = column[String]("SECURITY")
   
