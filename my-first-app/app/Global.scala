@@ -20,7 +20,7 @@ object Global extends GlobalSettings {
     def createDdl() = {
       play.api.db.slick.DB.withSession {
         implicit session: Session =>
-          ItemDao.ddl.create(session)
+          ItemDao.tableQuery.ddl.create(session)
       }
     }
     
@@ -31,14 +31,14 @@ object Global extends GlobalSettings {
 
           // Insert only if not already inserted
           
-          var numberOfSuppliers = ItemDao.length.run
+          var numberOfSuppliers = ItemDao.tableQuery.length.run
           
           if (numberOfSuppliers == 0) 
-            ItemDao ++= Seq(
-              (new Item(-1,"Name 1","Model 1")),
-              (new Item(-1,"Name 2","Model 2")),
-              (new Item(-1,"Name 3","Model 3")),
-              (new Item(-1,"Name 4","Model 4"))
+            ItemDao.tableQuery ++= Seq(
+              (new Item(-1,-1,"Name 1","Model 1")),
+              (new Item(-1,-1,"Name 2","Model 2")),
+              (new Item(-1,-1,"Name 3","Model 3")),
+              (new Item(-1,-1,"Name 4","Model 4"))
             )
           
       }

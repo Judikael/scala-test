@@ -21,6 +21,9 @@
 	@helper.form(action = routes.Application.supplierCreate(), 'role -> "form") {
       <input type="hidden" id="id" name="id" value="@{if (supplierForm("id").value) supplierForm("id").value else -1}" >
 	  <div class="form-group">
+	    @helper.inputText(supplierForm("userId"), '_label -> "UserId:", 'class -> "form-control", 'placeholder -> "Enter name", '_showConstraints -> false)
+	  </div>
+	  <div class="form-group">
 	    @helper.inputText(supplierForm("name"), '_label -> "Name:", 'class -> "form-control", 'placeholder -> "Enter name", '_showConstraints -> false)
 	  </div>
 	  <div class="form-group">

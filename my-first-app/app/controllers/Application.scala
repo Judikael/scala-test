@@ -16,6 +16,7 @@ object Application extends Controller {
   val itemForm = Form(
     mapping(
       "id" -> of[Long],
+      "userId" -> of[Long],
       "name" -> text(minLength = 3),
       "model" -> text(minLength = 3)
     )(Item.apply)(Item.unapply)
@@ -32,11 +33,11 @@ object Application extends Controller {
 
   def supplierEdit(id: Long) = DBAction { implicit rs =>
     val data = ItemDao.getById(id);
-    Ok(views.html.supplier(itemForm.fill(data),ItemDao.getAll))
+    Ok(views.html.supplier(itemForm.fill(data),ItemDao.sortAll))
   } 
 
   def supplierDisplay = DBAction { implicit rs =>
-    Ok(views.html.supplier(itemForm,ItemDao.getAll))
+    Ok(views.html.supplier(itemForm,ItemDao.sortAll))
   } 
 
   def supplierDelete(id: Long) = DBAction { implicit rs =>
@@ -47,7 +48,7 @@ object Application extends Controller {
   def supplierCreate = DBAction { implicit rs =>
     itemForm.bindFromRequest.fold(
     formWithErrors => { 
-      BadRequest(views.html.supplier(formWithErrors,ItemDao.getAll)) 
+      BadRequest(views.html.supplier(formWithErrors,ItemDao.sortAll)) 
     },
     supplier => {
       if (supplier.id == -1) {

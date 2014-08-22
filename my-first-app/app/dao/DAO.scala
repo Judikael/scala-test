@@ -5,26 +5,35 @@ import scala.slick.jdbc.JdbcBackend
 import play.api.db.slick.Config.driver.simple._
 import play.api.db.slick.DB
 
-object ItemDao extends TableQuery(new ItemsTable(_)) {
-	
-	def getById(id: Long)(implicit session: JdbcBackend#Session): Item = {
-			return ItemDao.filter(_.id === id).first 
-	}
-	
-	def getAll(implicit session: JdbcBackend#Session): List[Item] = {
-			return ItemDao.sortBy(_.name.asc.nullsFirst).list
-	}
-	
-	def delete(id: Long)(implicit session: JdbcBackend#Session) = {
-		ItemDao.filter(_.id === id).delete
-	} 
-	
-	def save(supplier: Item)(implicit session: JdbcBackend#Session) = {
-	  ItemDao.insert(supplier)
-	}
-	
-	def update(supplier: Item)(implicit session: JdbcBackend#Session) = {
-		ItemDao.filter(_.id === supplier.id).update(supplier)
-	}
-	
-}  
+object ItemDao extends GenericDao[Item, ItemsTable] {
+  
+  // Initialize the tableQuery
+  val tableQuery = TableQuery[ItemsTable]
+  
+  // Specific method
+	def sortAll(implicit session: JdbcBackend#Session): List[Item] = {
+			return tableQuery.sortBy(_.name.asc.nullsFirst).list
+	}  
+  
+}
+
+object TagDao extends GenericDao[models.Tag, TagsTable] {
+  
+  // Initialize the tableQuery
+  val tableQuery = TableQuery[TagsTable]
+  
+}
+
+object UserDao extends GenericDao[User, UsersTable] {
+
+  // Initialize the tableQuery
+  val tableQuery = TableQuery[UsersTable]
+
+}
+
+object ValueDao extends GenericDao[Value, ValuesTable] {
+
+  // Initialize the tableQuery
+  val tableQuery = TableQuery[ValuesTable]
+
+}
