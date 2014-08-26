@@ -3,14 +3,14 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.supplierDisplay
-GET     /supplier                   controllers.Application.supplierDisplay
-POST    /supplier                   controllers.Application.supplierCreate
-POST    /supplier/$id<[0-9]+>       controllers.Application.supplierDelete(id: Long)
-GET     /supplier/$id<[0-9]+>       controllers.Application.supplierEdit(id: Long)
+GET     /crud							controllers.Crud.itemDisplay
+GET     /crud/item						controllers.Crud.itemDisplay
+POST    /crud/item						controllers.Crud.itemCreate
+POST    /crud/item/$id<[0-9]+>       	controllers.Crud.itemDelete(id: Long)
+GET     /crud/item/$id<[0-9]+>			controllers.Crud.itemEdit(id: Long)
 
 # Ajax JS route
-GET /javascriptRoutes  controllers.Application.javascriptRoutes
+GET /javascriptRoutes  controllers.Crud.javascriptRoutes
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -17,12 +17,12 @@ object Global extends GlobalSettings {
 
   object InitialData {  
     
-    def createDdl() = {
-      play.api.db.slick.DB.withSession {
-        implicit session: Session =>
-          ItemDao.tableQuery.ddl.create(session)
-      }
-    }
+//    def createDdl() = {
+//      play.api.db.slick.DB.withSession {
+//        implicit session: Session =>
+//          ItemDao.tableQuery.ddl.create(session)
+//      }
+//    }
     
     def insert() = {
  
@@ -44,10 +44,10 @@ object Global extends GlobalSettings {
           var numberOfSuppliers = ItemDao.tableQuery.length.run
           if (numberOfSuppliers == 0) 
             ItemDao.tableQuery ++= Seq(
-              (new Item(-1,1,"Name 1","Model 1")),
-              (new Item(-1,1,"Name 2","Model 2")),
-              (new Item(-1,2,"Name 3","Model 3")),
-              (new Item(-1,2,"Name 4","Model 4"))
+              (new Item(-1,1,None,"Name 1","Model 1")),
+              (new Item(-1,1,Some(1),"Name 2","Model 2")),
+              (new Item(-1,2,Some(1),"Name 3","Model 3")),
+              (new Item(-1,2,None,"Name 4","Model 4"))
             )
           
       }

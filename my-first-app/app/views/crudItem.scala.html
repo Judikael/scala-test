@@ -1,4 +1,4 @@
-@(supplierForm: Form[Item], items: List[Item])(implicit flash: Flash)
+@(itemForm: Form[Item], items: List[Item])(implicit flash: Flash)
 
 @import views._
 @import models._
@@ -10,27 +10,30 @@
 	@flash.get("error")
 	@flash.get("success")
 
-	@if(supplierForm.hasGlobalErrors) {
+	@if(itemForm.hasGlobalErrors) {
 	  <ul>
-	  @for(error <- supplierForm.globalErrors) {
+	  @for(error <- itemForm.globalErrors) {
 	    <li>@error.message</li>
 	  }
 	  </ul>
 	}
 
-	@helper.form(action = routes.Application.supplierCreate(), 'role -> "form") {
-      <input type="hidden" id="id" name="id" value="@{if (supplierForm("id").value) supplierForm("id").value else -1}" >
+	@helper.form(action = routes.Crud.itemCreate(), 'role -> "form") {
+      <input type="hidden" id="id" name="id" value="@{if (itemForm("id").value) itemForm("id").value else -1}" >
 	  <div class="form-group">
-	    @helper.inputText(supplierForm("userId"), '_label -> "UserId:", 'class -> "form-control", 'placeholder -> "Enter name", '_showConstraints -> false)
+	    @helper.inputText(itemForm("userId"), '_label -> "UserId:", 'class -> "form-control", 'placeholder -> "Enter user ID", '_showConstraints -> false)
 	  </div>
 	  <div class="form-group">
-	    @helper.inputText(supplierForm("name"), '_label -> "Name:", 'class -> "form-control", 'placeholder -> "Enter name", '_showConstraints -> false)
+	    @helper.inputText(itemForm("parentItemId"), '_label -> "ParentItemId:", 'class -> "form-control", 'placeholder -> "Enter parent ID", '_showConstraints -> false)
 	  </div>
 	  <div class="form-group">
-	    @helper.inputText(supplierForm("model"), '_label -> "Model:", 'class -> "form-control", 'placeholder -> "Enter model", '_showConstraints -> false)
+	    @helper.inputText(itemForm("name"), '_label -> "Name:", 'class -> "form-control", 'placeholder -> "Enter name", '_showConstraints -> false)
+	  </div>
+	  <div class="form-group">
+	    @helper.inputText(itemForm("model"), '_label -> "Model:", 'class -> "form-control", 'placeholder -> "Enter model", '_showConstraints -> false)
 	  </div>
 	  <button type="submit" class="btn btn-default">
-	  	@if(supplierForm("id").value) {
+	  	@if(itemForm("id").value) {
 	  		<span class="glyphicon glyphicon-pencil"></span> Update 
 	  	} else {
 	  		<span class="glyphicon glyphicon-plus"></span> Add
@@ -46,6 +49,8 @@
 				<tr>
 				  <th></th>
 				  <th>ID</th>
+				  <th>User ID</th>
+				  <th>Parent Item ID</th>
 				  <th>Name</th> 
 				  <th>Model</th>
 				  <th></th>
@@ -56,6 +61,8 @@
 			@TableSectionHelper.getSections(items).map  { case (group, list) =>
 				<tr>
 				  <th>@group</th>
+				  <th></th> 
+				  <th></th> 
 				  <th></th> 
 				  <th></th>
 				  <th></th>
@@ -75,6 +82,8 @@
   <tr>
 	  <td></td>
 	  <td>@item.id</td>
+	  <td>@item.userId</td> 
+	  <td>@item.parentItemId</td> 
 	  <td>@item.name</td> 
 	  <td>@item.model</td>
 	  <td>
@@ -82,14 +91,14 @@
 		    <button class="btn btn-default" 
 		    	type="submit"
 		    	formmethod="get"
-		    	formaction="@routes.Application.supplierEdit(item.id)"
+		    	formaction="@routes.Crud.itemEdit(item.id)"
 		    	name="edit">
 		    	<span class="glyphicon glyphicon-pencil"></span>
 		    </button>
 		    <button class="btn btn-default" 
 		    	type="submit"
 		    	formmethod="post"
-		    	formaction="@routes.Application.supplierDelete(item.id)"
+		    	formaction="@routes.Crud.itemDelete(item.id)"
 		    	name="delete" >
 		    	<span class="glyphicon glyphicon-trash"></span>
 		    </button>

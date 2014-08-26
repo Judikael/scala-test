@@ -17,8 +17,8 @@ class ValuesTable(tag: play.api.db.slick.Config.driver.simple.Tag) extends Ident
   def value = column[String]("VALUE")
   def model = column[String]("MODEL")
   
-  def item = foreignKey("ITEMS",itemId, ItemDao.tableQuery)(_.id)
-  def tag = foreignKey("TAGS",tagId, TagDao.tableQuery)(_.id)
+  def item = foreignKey("VALUES_ITEMS_FK",itemId, ItemDao.tableQuery)(_.id)
+  def tag = foreignKey("VALUES_TAGS_FK",tagId, TagDao.tableQuery)(_.id)
   
   def * = (id, itemId, tagId, value, model) <> (Value.tupled, Value.unapply)
 }
