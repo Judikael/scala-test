@@ -1,4 +1,4 @@
-package views
+package views.utils
 
 import models.Item
 import scala.collection.immutable.TreeMap 

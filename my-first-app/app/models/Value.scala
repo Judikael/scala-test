@@ -8,8 +8,14 @@ import play.api.db.slick.Config.driver.simple._
 import dao.TagDao
 import dao.ItemDao
 
+/**
+ * Value
+ */
 case class Value(var id: Long, var itemId: Long, var tagId: Long, var value: String, var model: String) extends Identity
 
+/**
+ * Value database mapping
+ */
 class ValuesTable(tag: play.api.db.slick.Config.driver.simple.Tag) extends IdentityTable[Value](tag, "VALUES") {
   
 	def itemId = column[Long]("ITEM_ID")

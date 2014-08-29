@@ -1,6 +1,7 @@
 @(itemForm: Form[Item], items: List[Item])(implicit flash: Flash)
 
 @import views._
+@import views.utils._
 @import models._
 @import play.mvc._
 
@@ -21,7 +22,8 @@
 	@helper.form(action = routes.Crud.itemCreate(), 'role -> "form") {
       <input type="hidden" id="id" name="id" value="@{if (itemForm("id").value) itemForm("id").value else -1}" >
 	  <div class="form-group">
-	    @helper.inputText(itemForm("userId"), '_label -> "UserId:", 'class -> "form-control", 'placeholder -> "Enter user ID", '_showConstraints -> false)
+@* 	    @helper.inputText(itemForm("userId"), '_label -> "UserId:", 'class -> "form-control", 'placeholder -> "Enter user ID", '_showConstraints -> false)*@
+	    @helper.select(itemForm("userId"), Seq(), '_label -> "UserId:", 'class -> "form-control", 'placeholder -> "Enter user ID", '_showConstraints -> false)
 	  </div>
 	  <div class="form-group">
 	    @helper.inputText(itemForm("parentItemId"), '_label -> "ParentItemId:", 'class -> "form-control", 'placeholder -> "Enter parent ID", '_showConstraints -> false)
