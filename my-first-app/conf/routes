@@ -10,7 +10,8 @@ POST    /crud/item/$id<[0-9]+>       	controllers.Crud.itemDelete(id: Long)
 GET     /crud/item/$id<[0-9]+>			controllers.Crud.itemEdit(id: Long)
 
 # Ajax JS route
-GET /javascriptRoutes  controllers.Crud.javascriptRoutes
+GET /javascriptRoutes  			controllers.JavaScript.javascriptRoutes
+GET /javascript/listUsers  		controllers.JavaScript.listUsers
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

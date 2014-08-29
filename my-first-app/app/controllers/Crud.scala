@@ -23,15 +23,6 @@ object Crud extends Controller {
     )(Item.apply)(Item.unapply)
   )			
 
-  def javascriptRoutes = Action { implicit request =>
-    Ok(
-      Routes.javascriptRouter("jsRoutes")(
-        routes.javascript.Crud.itemDisplay,
-        routes.javascript.Crud.itemDelete,
-        routes.javascript.Crud.itemCreate,
-        routes.javascript.Crud.itemEdit)).as("text/javascript")
-  }
-
   def itemEdit(id: Long) = DBAction { implicit rs =>
     val data = ItemDao.getById(id);
     Ok(views.html.crudItem(itemForm.fill(data),ItemDao.sortAll))

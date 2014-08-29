@@ -5,7 +5,7 @@ package models
 
 // Importing the slick driver
 import play.api.db.slick.Config.driver.simple._
-import play.api.libs.json._
+
 
 /**
  * User
@@ -22,8 +22,3 @@ class UsersTable(tag: play.api.db.slick.Config.driver.simple.Tag) extends Identi
   
   def * = (id, login, security) <> (User.tupled, User.unapply)
 }
-
-/**
- * User JSON mapping
- */
-
