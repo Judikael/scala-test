@@ -22,8 +22,18 @@
 	@helper.form(action = routes.Crud.itemCreate(), 'role -> "form") {
       <input type="hidden" id="id" name="id" value="@{if (itemForm("id").value) itemForm("id").value else -1}" >
 	  <div class="form-group">
-@* 	    @helper.inputText(itemForm("userId"), '_label -> "UserId:", 'class -> "form-control", 'placeholder -> "Enter user ID", '_showConstraints -> false)*@
-	    @helper.select(itemForm("userId"), Seq(), '_label -> "UserId:", 'class -> "form-control", 'placeholder -> "Enter user ID", '_showConstraints -> false)
+	  	@defining(
+		    itemForm("userId").value match {
+		        case Some(value) => { 
+		        	Seq((value,""))
+		        }
+		        case None => {
+		        	Seq()
+				}
+		    }){ defaultSeq =>
+		    	@helper.select(itemForm("userId"),defaultSeq,'_label -> "UserId:", 'class -> "form-control", 'placeholder -> "Enter user ID", '_showConstraints -> false)
+			}
+	  
 	  </div>
 	  <div class="form-group">
 	    @helper.inputText(itemForm("parentItemId"), '_label -> "ParentItemId:", 'class -> "form-control", 'placeholder -> "Enter parent ID", '_showConstraints -> false)

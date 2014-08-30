@@ -2,16 +2,18 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
+# HTTP route
 GET     /crud							controllers.Crud.itemDisplay
 GET     /crud/item						controllers.Crud.itemDisplay
 POST    /crud/item						controllers.Crud.itemCreate
 POST    /crud/item/$id<[0-9]+>       	controllers.Crud.itemDelete(id: Long)
 GET     /crud/item/$id<[0-9]+>			controllers.Crud.itemEdit(id: Long)
 
-# Ajax JS route
-GET /javascriptRoutes  			controllers.JavaScript.javascriptRoutes
-GET /javascript/listUsers  		controllers.JavaScript.listUsers
+# JSON route
+GET /javascript/listUsers  				controllers.JavaScript.listUsers
+GET /javascript/searchUsers/*query  	controllers.JavaScript.searchUsers(query: String)
+GET /javascript/getUser/$id<[0-9]+>  	controllers.JavaScript.getUser(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
+GET     /assets/js/routes           controllers.JavaScript.javascriptRoutes
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

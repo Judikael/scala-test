@@ -19,7 +19,9 @@ object JavaScript extends Controller {
     def javascriptRoutes = Action { implicit request =>
     Ok(
       Routes.javascriptRouter("jsRoutes")(
-        routes.javascript.JavaScript.listUsers
+        routes.javascript.JavaScript.listUsers,
+        routes.javascript.JavaScript.getUser,
+        routes.javascript.JavaScript.searchUsers
         )
       ).as("text/javascript")
   }
@@ -27,6 +29,16 @@ object JavaScript extends Controller {
   def listUsers = DBAction { implicit rs =>
     val json = Json.toJson(UserDao.getAll)
     Ok(json)
+  }
+  
+  def getUser(id: Long) = DBAction { implicit rs =>
+	  val json = Json.toJson(UserDao.getById(id))
+	  Ok(json)
+  }
+  
+  def searchUsers(query: String) = DBAction { implicit rs =>
+  	val json = Json.toJson(UserDao.getAll)
+  	Ok(json)
   }
   
   def listTags = DBAction { implicit rs =>
