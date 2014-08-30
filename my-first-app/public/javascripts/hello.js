@@ -11,7 +11,24 @@ $( document ).ready(function() {
   	searchField: ['login', 'id'],
   	sortField: ['login', 'id'],
 	create: false,
-	preload: true,
+	allowEmptyOption: false,
+	preload: false,
+	openOnFocus: false,
+	onDelete: function(values) {
+		// Display all options
+		var userSelectize = this;
+		jsRoutes.controllers.JavaScript.listUsers().ajax( {
+			error: function() {
+			},
+			success: function(res) {
+				console.log(res);
+				res.forEach(function(entry) {
+				    userSelectize.addOption(entry);
+				});
+				userSelectize.refreshOptions(true);
+			}
+		});
+	},
   	render: {
 			option: function(item, escape) {
 				return '<div>' +
@@ -38,16 +55,19 @@ $( document ).ready(function() {
 		});
 	},
 	load: function(query, callback) {
-		if (!query.length) return callback();
-		jsRoutes.controllers.JavaScript.searchUsers(query).ajax( {
-			error: function() {
-				callback();
-			},
-			success: function(res) {
-				console.log(res);
-				callback(res);
-			}
-		});
+		if (!query.length) {
+			callback();
+		} else {
+			jsRoutes.controllers.JavaScript.searchUsers(query).ajax( {
+				error: function() {
+					callback();
+				},
+				success: function(res) {
+					console.log(res);
+					callback(res);
+				}
+			});
+		}
 	}
   });
   
