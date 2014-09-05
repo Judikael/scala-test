@@ -28,3 +28,8 @@ class ItemsTable(tag: play.api.db.slick.Config.driver.simple.Tag) extends Identi
   
   def * = (id, userId, parentItemId, name, model) <> (Item.tupled, Item.unapply)
 }
+
+/**
+ * Item and all associate object
+ */
+case class ItemWithAll(item: Item, user: User)

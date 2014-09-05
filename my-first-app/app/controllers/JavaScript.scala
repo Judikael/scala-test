@@ -37,7 +37,7 @@ object JavaScript extends Controller {
   }
   
   def searchUsers(query: String) = DBAction { implicit rs =>
-  	val json = Json.toJson(UserDao.getAll)
+  	val json = Json.toJson(UserDao.search(query))
   	Ok(json)
   }
   

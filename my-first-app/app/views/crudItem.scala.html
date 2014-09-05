@@ -1,4 +1,4 @@
-@(itemForm: Form[Item], items: List[Item])(implicit flash: Flash)
+@(itemForm: Form[Item], editedItem:ItemWithAll, items: List[Item])(implicit flash: Flash)
 
 @import views._
 @import views.utils._
@@ -25,17 +25,17 @@
 	  	@defining(
 		    itemForm("userId").value match {
 		        case Some(value) => { 
-		        	Seq((value,""))
+		        	Seq((value,editedItem.user.login))
 		        }
 		        case None => {
 		        	Seq()
 				}
 		    }){ defaultSeq =>
-		    	@helper.select(itemForm("userId"),defaultSeq,'_label -> "UserId:", 'class -> "form-control", 'placeholder -> "Enter user ID", '_showConstraints -> false)
+		    	@helper.select(itemForm("userId"),defaultSeq,'_label -> "UserId:", 'class -> "form-control", 'placeholder -> "Search an user", '_showConstraints -> false)
 			}
 	  </div>
 	  <div class="form-group">
-	    @helper.inputText(itemForm("parentItemId"), '_label -> "ParentItemId:", 'class -> "form-control", 'placeholder -> "Enter parent ID", '_showConstraints -> false)
+	    @helper.inputText(itemForm("parentItemId"), '_label -> "ParentItemId:", 'class -> "form-control", 'placeholder -> "Search an item", '_showConstraints -> false)
 	  </div>
 	  <div class="form-group">
 	    @helper.inputText(itemForm("name"), '_label -> "Name:", 'class -> "form-control", 'placeholder -> "Enter name", '_showConstraints -> false)

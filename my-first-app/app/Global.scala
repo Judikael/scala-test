@@ -36,7 +36,15 @@ object Global extends GlobalSettings {
         			  (new User(1,"User01","pwd01")),
         			  (new User(2,"User02","pwd02")),
         			  (new User(3,"User03","pwd03")),
-        			  (new User(4,"User04","pwd04"))
+        			  (new User(4,"User04","pwd04")),
+        			  (new User(5,"Albert","pwd04")),
+        			  (new User(6,"Joseft","pwd04")),
+        			  (new User(7,"Alberta","pwd04")),
+        			  (new User(8,"Benoit","pwd04")),
+        			  (new User(9,"David","pwd04")),
+        			  (new User(10,"Julie","pwd04")),
+        			  (new User(11,"Romain","pwd04")),
+        			  (new User(12,"Bertrand","pwd04"))
         			  )
             
             
