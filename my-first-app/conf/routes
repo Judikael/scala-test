@@ -3,7 +3,6 @@
 # ~~~~
 
 # HTTP route
-GET     /crud							controllers.Crud.itemDisplay
 GET     /crud/item						controllers.Crud.itemDisplay
 POST    /crud/item						controllers.Crud.itemCreate
 POST    /crud/item/$id<[0-9]+>       	controllers.Crud.itemDelete(id: Long)
@@ -12,6 +11,7 @@ GET     /crud/item/$id<[0-9]+>			controllers.Crud.itemEdit(id: Long)
 # JSON route
 GET /javascript/listUsers  				controllers.JavaScript.listUsers
 GET /javascript/searchUsers/*query  	controllers.JavaScript.searchUsers(query: String)
+GET /javascript/searchItems/*query  	controllers.JavaScript.searchItems(query: String)
 GET /javascript/getUser/$id<[0-9]+>  	controllers.JavaScript.getUser(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path

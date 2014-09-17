@@ -24,12 +24,12 @@ object Crud extends Controller {
   )			
 
   def itemEdit(id: Long) = DBAction { implicit rs =>
-    val data = ItemDao.getUserWithAll(id);
-    Ok(views.html.crudItem(itemForm.fill(data.item),data,ItemDao.sortAll))
+    val itemLoaded = ItemDao.getUserWithAll(id);
+    Ok(views.html.crudItem(itemForm.fill(itemLoaded.item),Some(itemLoaded),ItemDao.sortAll))
   } 
 
   def itemDisplay = DBAction { implicit rs =>
-    Ok(views.html.crudItem(itemForm,null,ItemDao.sortAll))
+    Ok(views.html.crudItem(itemForm,None,ItemDao.sortAll))
   } 
 
   def itemDelete(id: Long) = DBAction { implicit rs =>
@@ -40,7 +40,7 @@ object Crud extends Controller {
   def itemCreate = DBAction { implicit rs =>
     itemForm.bindFromRequest.fold(
     formWithErrors => { 
-      BadRequest(views.html.crudItem(formWithErrors,null,ItemDao.sortAll)) 
+      BadRequest(views.html.crudItem(formWithErrors,None,ItemDao.sortAll)) 
     },
     item => {
       if (item.id == -1) {

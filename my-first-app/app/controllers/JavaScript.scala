@@ -16,12 +16,13 @@ import views.utils.JSONConverter._
 
 object JavaScript extends Controller {
 
-    def javascriptRoutes = Action { implicit request =>
+  def javascriptRoutes = Action { implicit request =>
     Ok(
       Routes.javascriptRouter("jsRoutes")(
         routes.javascript.JavaScript.listUsers,
         routes.javascript.JavaScript.getUser,
-        routes.javascript.JavaScript.searchUsers
+        routes.javascript.JavaScript.searchUsers,
+        routes.javascript.JavaScript.searchItems
         )
       ).as("text/javascript")
   }
@@ -39,6 +40,11 @@ object JavaScript extends Controller {
   def searchUsers(query: String) = DBAction { implicit rs =>
   	val json = Json.toJson(UserDao.search(query))
   	Ok(json)
+  }
+  
+  def searchItems(query: String) = DBAction { implicit rs =>
+    val json = Json.toJson(ItemDao.search(query))
+    Ok(json)
   }
   
   def listTags = DBAction { implicit rs =>

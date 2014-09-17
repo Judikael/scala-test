@@ -27,9 +27,25 @@ class ItemsTable(tag: play.api.db.slick.Config.driver.simple.Tag) extends Identi
   def parentItem = foreignKey("ITEMS_ITEMS_FK",parentItemId, ItemDao.tableQuery)(_.id)
   
   def * = (id, userId, parentItemId, name, model) <> (Item.tupled, Item.unapply)
+  
+  
+//  def tupleToItem(itemTuple: (Option[Long], Option[Long], Option[Long], Option[String], Option[String])): Option[Item]= {
+//    itemTuple match {
+//      case (Some(id), Some(userId), parentItemId, Some(name), Some(model)) => Some(Item(id, userId, parentItemId, name, model))
+//      case (None,_,_,_,_) => None
+//    }
+//  }
+//  
+//  def itemToTuple(item: Option[Item]): (Option[Long], Option[Long], Option[Long], Option[String], Option[String]) = {
+//    item match {
+//      case Some(item)=> (Some(item.id), Some(item.userId), item.parentItemId, Some(item.name), Some(item.model))
+//      case None => (None, None, None, None, None)
+//    } 
+//  }
+//  def maybe = (id.?, userId.?, parentItemId, name.?, model.?) <> ((toto) => tupleToItem(toto), (order: Option[Item]) => None)
 }
 
 /**
  * Item and all associate object
  */
-case class ItemWithAll(item: Item, user: User)
+case class ItemWithAll(item: Item, user: User, parentItem: Option[Item])
