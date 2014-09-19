@@ -1,9 +1,7 @@
 /* PlayFramework Stype */
 form .error {
-  color: red;
+  color: #a94442;
 }
-
-
 
 /* Space out content a bit */
 body {

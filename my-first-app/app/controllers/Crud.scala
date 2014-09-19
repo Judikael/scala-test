@@ -7,6 +7,7 @@ import play.api.db.slick._
 import models.Item
 import play.api.data._
 import play.api.data.Forms._
+//import play.api.data.validation.Constraints._
 import play.api.data.format.Formats._
 import play.api.db.slick.Config.driver.simple._
 import play.api.db.slick.DB
@@ -15,7 +16,7 @@ object Crud extends Controller {
 
   val itemForm = Form(
     mapping(
-      "id" -> longNumber,
+      "id" -> longNumber.verifying("An user must be selected", {_ > 0}),
       "userId" -> longNumber,
       "parentItemId" -> optional(longNumber),
       "name" -> text(minLength = 3),
@@ -39,18 +40,18 @@ object Crud extends Controller {
 
   def itemCreate = DBAction { implicit rs =>
     itemForm.bindFromRequest.fold(
-    formWithErrors => { 
-      BadRequest(views.html.crudItem(formWithErrors,None,ItemDao.sortAll)) 
-    },
-    item => {
-      if (item.id == -1) {
-    	  ItemDao.save(item)
-      } else {
-    	  ItemDao.update(item)
+      formWithErrors => { 
+        BadRequest(views.html.crudItem(formWithErrors,None,ItemDao.sortAll)) 
+      },
+      item => {
+        if (item.id == -1) {
+      	  ItemDao.save(item)
+        } else {
+      	  ItemDao.update(item)
+        }
+        Redirect(routes.Crud.itemDisplay()).flashing("success" -> "Saved!")
       }
-      Redirect(routes.Crud.itemDisplay()).flashing("success" -> "Saved!")
-    }
-  )
+    )
   }
 
 }
