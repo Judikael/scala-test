@@ -6,7 +6,12 @@
 @import play.mvc._
 
 @main(title = "Items") {
-	<h2 class="sub-header">Selected items</h2>
+
+  	@if(itemForm("id").value && itemForm("id").value != Some("-1")) {
+  		<h2 class="sub-header">Update item</h2>
+  	} else {
+  		<h2 class="sub-header">Add new items</h2>
+  	}
 
 	@flash.get("error")
 	@flash.get("success")
@@ -21,18 +26,8 @@
 
 	@helper.form(action = routes.Crud.itemCreate(), 'role -> "form") {
     <input type="hidden" id="id" name="id" value="@{if (itemForm("id").value) itemForm("id").value else -1}" >
-	  <div class="form-group @if(itemForm("userId").hasErrors) {has-error}">
-	  	@defining(
-		    editedItem match {
-		        case Some(item) => { 
-		        	Seq((item.user.id.toString,item.user.login))
-		        }
-		        case None => {
-		        	Seq()
-						}
-		    }){ defaultSeq =>
-		    	@helper.select(itemForm("userId"),defaultSeq,'_label -> "User:", 'class -> "form-control", 'placeholder -> "Type for search an user", '_showConstraints -> false)
-			}
+	  <div class="form-group @if(itemForm("name").hasErrors) {has-error}">
+	    @helper.inputText(itemForm("name"), '_label -> "Name:", 'class -> "form-control", 'placeholder -> "Enter name", '_showConstraints -> false)
 	  </div>
 	  <div class="form-group @if(itemForm("parentItemId").hasErrors) {has-error}">
 	  	@defining(
@@ -48,14 +43,24 @@
 		    	@helper.select(itemForm("parentItemId"),defaultSeq,'_label -> "Parent Item:", 'class -> "form-control", 'placeholder -> "Type for search an item", '_showConstraints -> false)
 			}
 	  </div>
-	  <div class="form-group @if(itemForm("name").hasErrors) {has-error}">
-	    @helper.inputText(itemForm("name"), '_label -> "Name:", 'class -> "form-control", 'placeholder -> "Enter name", '_showConstraints -> false)
-	  </div>
 	  <div class="form-group @if(itemForm("model").hasErrors) {has-error}">
 	    @helper.inputText(itemForm("model"), '_label -> "Model:", 'class -> "form-control", 'placeholder -> "Enter model", '_showConstraints -> false)
 	  </div>
+	  <div class="form-group @if(itemForm("userId").hasErrors) {has-error}">
+	  	@defining(
+		    editedItem match {
+		        case Some(item) => { 
+		        	Seq((item.user.id.toString,item.user.login))
+		        }
+		        case None => {
+		        	Seq()
+						}
+		    }){ defaultSeq =>
+		    	@helper.select(itemForm("userId"),defaultSeq,'_label -> "User:", 'class -> "form-control", 'placeholder -> "Type for search an user", '_showConstraints -> false)
+			}
+	  </div>
 	  <button type="submit" class="btn btn-default">
-	  	@if(itemForm("id").value) {
+	  	@if(itemForm("id").value && itemForm("id").value != Some("-1")) {
 	  		<span class="glyphicon glyphicon-pencil"></span> Update 
 	  	} else {
 	  		<span class="glyphicon glyphicon-plus"></span> Add
